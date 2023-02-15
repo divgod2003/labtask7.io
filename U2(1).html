@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Page Access Counter</title>
+  </head>
+  <body>
+    <h1>Page Access Counter</h1>
+    <p>You have accessed this page <span id="counter"></span> times.</p>
+
+    <script>
+      // get the current count from localStorage, or set it to 0 if it doesn't exist
+      let count = parseInt(localStorage.getItem("accessCount")) || 0;
+
+      // increment the count and store it in localStorage
+      count++;
+      localStorage.setItem("accessCount", count);
+
+      // display the count to the user
+      const counterElement = document.getElementById("counter");
+      counterElement.innerText = count;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My To-Do List</title>
+  </head>
+  <body>
+    <h1>My To-Do List</h1>
+    <ul id="list"></ul>
+    <input type="text" id="input" />
+    <button id="button">Add</button>
+
+    <script>
+      // get the list from localStorage or create an empty array if it doesn't exist
+      let list = JSON.parse(localStorage.getItem("list")) || [];
+
+      // get references to the DOM elements
+      const listElement = document.getElementById("list");
+      const inputElement = document.getElementById("input");
+      const buttonElement = document.getElementById("button");
+
+      // function to render the list
+      function renderList() {
+        listElement.innerHTML = "";
+        for (let i = 0; i < list.length; i++) {
+          const item = document.createElement("li");
+          item.innerText = list[i];
+          listElement.appendChild(item);
+        }
+      }
+
+      // add the initial items to the list
+      renderList();
+
+      // add a new item to the list
+      function addItem() {
+        const value = inputElement.value.trim();
+        if (value !== "") {
+          list.push(value);
+          localStorage.setItem("list", JSON.stringify(list));
+          renderList();
+          inputElement.value = "";
+        }
+      }
+
+      // add an event listener to the button
+      buttonElement.addEventListener("click", addItem);
+
+      // add an event listener to the input field to handle pressing "enter"
+      inputElement.addEventListener("keyup", (event) => {
+        if (event.key === "Enter") {
+          addItem();
+        }
+      });
+    </script>
+  </body>
+</html>
